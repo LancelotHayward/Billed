@@ -45,7 +45,6 @@ describe("Given I am connected as an employee", () => {
     })
     describe("When I click on the new bills button", () => {
       test("Then the page should change", async () => {
-        const spy_onNavigate_window = jest.spyOn(window, "onNavigate")
         Object.defineProperty(window, 'localStorage', { value: localStorageMock })
         window.localStorage.setItem('user', JSON.stringify({
           type: 'Employee'
@@ -132,7 +131,7 @@ describe("Given I am a user connected as Employee", () => {
             return Promise.reject(new Error("Erreur 404"))
           }
         }})
-      window.onNavigate(ROUTES_PATH.Dashboard)
+      window.onNavigate(ROUTES_PATH.Bills)
       await new Promise(process.nextTick);
       const message = await screen.getByText(/Erreur 404/)
       expect(message).toBeTruthy()
@@ -147,7 +146,7 @@ describe("Given I am a user connected as Employee", () => {
           }
         }})
 
-      window.onNavigate(ROUTES_PATH.Dashboard)
+      window.onNavigate(ROUTES_PATH.Bills)
       await new Promise(process.nextTick);
       const message = await screen.getByText(/Erreur 500/)
       expect(message).toBeTruthy()

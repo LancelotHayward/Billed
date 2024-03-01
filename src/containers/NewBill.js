@@ -20,7 +20,10 @@ export default class NewBill {
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
-    if (!fileName.split('.').pop().contains(["jpg", "jpeg", "png"])) {
+    const listOfExtensions = ["jpg", "jpeg", "png"]
+    if (!listOfExtensions.some(
+      extension => filePath[filePath.length-1].split('.').pop().includes(extension)
+      )){
       return
     }
     const formData = new FormData()
