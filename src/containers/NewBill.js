@@ -15,15 +15,31 @@ export default class NewBill {
     this.billId = null
     new Logout({ document, localStorage, onNavigate })
   }
+  validateFile = file => {
+    const fileTypes = ["image/jpeg", "image/jpg", "image/png"]
+    if (!fileTypes.includes(file.type)) {
+      this.document
+        .querySelector(`input[data-testid="file"]`)
+        .classList.add("is-invalid")
+      return false
+    }
+    this.document
+      .querySelector(`input[data-testid="file"]`)
+      .classList.remove("is-invalid")
+    return true
+  };
   handleChangeFile = e => {
     e.preventDefault()
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
-    const listOfExtensions = ["jpg", "jpeg", "png"]
-    if (!listOfExtensions.some(
-      extension => filePath[filePath.length-1].split('.').pop().includes(extension)
-      )){
+    // const listOfExtensions = ["jpg", "jpeg", "png"]
+    // if (!listOfExtensions.some(
+    //   extension => filePath[filePath.length-1].split('.').pop().includes(extension)
+    //   )){
+    //   return
+    // }
+    if (!this.validateFile(file)) {
       return
     }
     const formData = new FormData()
