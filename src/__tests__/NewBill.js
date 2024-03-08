@@ -65,11 +65,9 @@ describe("Given I am logged-in as an employee", () => {
         const inputData = bills[0]
         const newBillForm = screen.getByTestId("form-new-bill")
         const handleSubmit = jest.fn(newBill.handleSubmit)
-        const imageInput = screen.getByTestId("file")
         const file = new File(["img"], inputData.fileName, {
           type: ["image/jpg"],
         })
-        const validateFile = jest.spyOn(newBill, "validateFile")
         newBill.fileName = file.name
         const submitButton = screen.getByRole("button", { name: /envoyer/i })
         expect(submitButton.type).toBe("submit")
